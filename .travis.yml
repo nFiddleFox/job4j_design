@@ -1,0 +1,14 @@
+language: java
+sudo: false
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email:
+    recipients:
+      - deathdarco@rambler.ru
+    on_success: never
+    on_failure: always
+env:
+  global:
+    - CODECOV_TOKEN=:uuid-repo-token
