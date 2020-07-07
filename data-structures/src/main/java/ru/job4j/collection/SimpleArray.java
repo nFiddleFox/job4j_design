@@ -37,12 +37,12 @@ public class SimpleArray<T> implements Iterable<T> {
     public Iterator<T> iterator() {
 
         return new Iterator<T>() {
-            private long expectedModCount = getModCount();
+            private long expectedModCount = modCount;
             private int point = 0;
 
             @Override
             public boolean hasNext() {
-                if (expectedModCount != getModCount()) {
+                if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
 
