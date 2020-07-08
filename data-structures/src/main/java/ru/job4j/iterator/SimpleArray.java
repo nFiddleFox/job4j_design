@@ -13,9 +13,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void add(T model) {
-        if (length < data.length) {
-            data[length++] = model;
-        }
+        data[length++] = model;
     }
 
     public void set(int index, T model) {
@@ -27,9 +25,7 @@ public class SimpleArray<T> implements Iterable<T> {
         if (index == (length - 1)) {
             length--;
         } else {
-            for (int i = index; i < length; i++) {
-                data[i] = data[i + 1];
-            }
+            System.arraycopy(data, index + 1, data, index, length);
             length--;
         }
 
@@ -54,7 +50,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
         @Override
         public boolean hasNext() {
-            return cursor != length;
+            return cursor < length;
         }
 
         @SuppressWarnings("unchecked")
