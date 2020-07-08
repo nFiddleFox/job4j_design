@@ -2,6 +2,7 @@ package ru.job4j.generic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public final class MemStore<T extends Base> implements Store<T> {
     private final List<T> mem = new ArrayList<>();
@@ -13,34 +14,26 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public boolean replace(String id, T model) {
-        try {
-            int i = findIndexById(id);
-            mem.set(i, model);
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
+        int i = findIndexById(id);
+        Objects.checkIndex(i, mem.size());
+        mem.set(i, model);
+        return true;
+
     }
 
     @Override
     public boolean delete(String id) {
-        try {
-            int i = findIndexById(id);
-            mem.remove(i);
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
+        int i = findIndexById(id);
+        Objects.checkIndex(i, mem.size());
+        mem.remove(i);
+        return true;
     }
 
     @Override
     public T findById(String id) {
-        try {
-            int i = findIndexById(id);
-            return mem.get(i);
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
+        int i = findIndexById(id);
+        Objects.checkIndex(i, mem.size());
+        return mem.get(i);
     }
 
     public int findIndexById(String id) {
@@ -49,6 +42,6 @@ public final class MemStore<T extends Base> implements Store<T> {
                 return i;
             }
         }
-        throw new IllegalArgumentException("No element in the array found by " + id);
+        return -1;
     }
 }
