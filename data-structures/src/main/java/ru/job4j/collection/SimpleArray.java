@@ -29,7 +29,7 @@ public class SimpleArray<T> implements Iterable<T> {
             System.arraycopy(container, 0, containerTemp, 0, length);
             container = containerTemp;
         }
-        container[length] = model;
+        container[length++] = model;
         modCount++;
     }
 
